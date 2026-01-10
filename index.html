@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narek Martirosyan | Professional Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        emailjs.init('fCC5H5_yI9RuCC6_x');
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --brand-primary: #10b981;
+            --brand-secondary: #0ea5e9;
+            --bg-dark: #0a0a0c;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --card-border: rgba(255, 255, 255, 0.06);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: #e2e8f0;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        .glass-panel {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .glass-panel:hover { border-color: rgba(16, 185, 129, 0.3); }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .accent-gradient {
+            background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%);
+        }
+
+        /* MacOS Terminal Styling */
+        .macos-window {
+            background: var(--terminal-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5), 0 30px 60px -30px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255,255,255,0.1);
+        }
+
+        .macos-header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-content {
+            padding: 24px;
+            min-height: 180px;
+        }
+
+        .prompt-symbol { color: #10b981; margin-right: 12px; font-weight: bold; }
+
+        /* Styled Terminal Text */
+        .terminal-text {
+            color: #10b981;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+            line-height: 1.3;
+            display: inline;
+            word-break: break-word;
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.2em;
+            background-color: #10b981;
+            margin-left: 4px;
+            animation: blink 1s step-end infinite;
+            vertical-align: middle;
+            box-shadow: 0 0 8px #10b981;
+        }
+
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .nav-link {
+            position: relative;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #94a3b8;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover { color: #fff; }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--brand-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after { width: 100%; }
+
+        .reveal { opacity: 0; transform: translateY(20px); }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0c; }
+        ::-webkit-scrollbar-thumb { background: #2d2d30; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--brand-primary); }
+
+        /* Language Toggle Styles */
+        #lang-dropdown {
+            display: none;
+            animation: fadeIn 0.2s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="fixed top-0 w-full z-[100] transition-all duration-500  mb-4" id="main-header">
+    <div class="max-w-7xl mx-auto px-8 flex justify-between items-center">
+        <div class="flex gap-2 items-center justify-center">
+            <a href="#" class="text-xl font-bold tracking-tight flex items-center gap-3 group">
+                <div class="w-10 h-10 accent-gradient rounded-xl flex items-center justify-center text-black shadow-lg shadow-emerald-500/20 group-hover:rotate-12 transition-transform">
+                    <span class="font-black">N</span>
+                </div>
+                <span class="hidden sm:block">NAREK<span class="text-emerald-500">.</span>M</span>
+            </a>
+            <div class="mono text-emerald-500 text-sm font-medium flex items-center gap-3 uppercase">
+                <span class="w-10 h-[1px] bg-emerald-500/30"></span>
+                <span data-i18n="hero-tag">FULL STACK ENGINEER</span>
+            </div>
+        </div>
+
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="#home" class="nav-link" data-i18n="nav-about">About</a>
+            <a href="#experience" class="nav-link" data-i18n="nav-career">Career</a>
+            <a href="#skills" class="nav-link" data-i18n="nav-stack">Stack</a>
+            <a href="#education" class="nav-link" data-i18n="nav-education">Education</a>
+
+            <!-- Language Selector -->
+            <div class="relative group" id="lang-selector">
+                <button class="flex items-center gap-2 px-3 py-1.5 glass-panel rounded-lg text-[11px] font-bold uppercase tracking-wider text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-globe text-emerald-500"></i>
+                    <span id="current-lang-label">EN</span>
+                </button>
+                <div id="lang-dropdown" class="absolute top-full right-0 mt-2 w-32 glass-panel rounded-xl overflow-hidden shadow-2xl">
+                    <button onclick="changeLang('en')" class="w-full text-left px-4 py-3 text-[11px] font-bold hover:bg-emerald-500/10 transition-colors border-b border-white/5">ENGLISH</button>
+                    <button onclick="changeLang('am')" class="w-full text-left px-4 py-3 text-[11px] font-bold hover:bg-emerald-500/10 transition-colors border-b border-white/5">ՀԱՅԵՐԵՆ</button>
+                    <button onclick="changeLang('ru')" class="w-full text-left px-4 py-3 text-[11px] font-bold hover:bg-emerald-500/10 transition-colors">РУССКИЙ</button>
+                </div>
+            </div>
+
+            <a href="#contact" data-i18n="nav-talk"
+               class="px-5 py-2.5 bg-white text-black text-[11px] font-bold rounded-lg hover:bg-emerald-500 hover:text-white transition-all">LET'S
+                TALK</a>
+        </nav>
+
+        <button id="menu-toggle" class="md:hidden text-white text-2xl"><i class="fa-solid fa-bars-staggered"></i></button>
+    </div>
+</header>
+
+<!-- Mobile Nav Overlay -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/95 z-[200] translate-x-full transition-transform duration-500 p-12 flex flex-col justify-center items-center gap-8 text-center">
+    <button id="menu-close" class="absolute top-8 right-8 text-2xl"><i class="fa-solid fa-x"></i></button>
+    <a href="#home" class="text-3xl font-bold" data-i18n="nav-about">About</a>
+    <a href="#experience" class="text-3xl font-bold" data-i18n="nav-career">Experience</a>
+    <a href="#skills" class="text-3xl font-bold" data-i18n="nav-stack">Skills</a>
+    <a href="#contact" class="text-3xl font-bold text-emerald-500" data-i18n="nav-talk">Contact</a>
+    <div class="flex gap-4 mt-8">
+        <button onclick="changeLang('en')" class="px-4 py-2 glass-panel rounded-lg text-xs font-bold">EN</button>
+        <button onclick="changeLang('am')" class="px-4 py-2 glass-panel rounded-lg text-xs font-bold">AM</button>
+        <button onclick="changeLang('ru')" class="px-4 py-2 glass-panel rounded-lg text-xs font-bold">RU</button>
+    </div>
+</div>
+
+<!-- Hero -->
+<section id="home" class="min-h-screen flex items-center px-8 relative pt-20">
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-[20%] right-[10%] w-[400px] h-[400px] bg-emerald-500/5 blur-[120px] rounded-full"></div>
+        <div class="absolute bottom-[10%] left-[5%] w-[300px] h-[300px] bg-sky-500/5 blur-[100px] rounded-full"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-16 items-start">
+        <div class="lg:col-span-7 mb-5">
+            <div class="macos-window mono w-full mb-10">
+                <div class="macos-header">
+                    <div class="dot dot-red"></div>
+                    <div class="dot dot-yellow"></div>
+                    <div class="dot dot-green"></div>
+                    <div class="flex-1 text-center text-[10px] text-slate-500 font-medium tracking-widest uppercase">
+                        zsh — narek@dev
+                    </div>
+                </div>
+                <div class="terminal-content">
+                    <div class="mb-4 text-slate-600 text-xs">Last login: <span id="current-date"></span> on ttys001</div>
+                    <div class="flex items-start">
+                        <span class="prompt-symbol text-xl">➜</span>
+                        <span class="text-sky-400 mr-3 text-xl font-bold">~</span>
+                        <div class="flex-1">
+                            <h1 id="hero-title" class="text-3xl md:text-6xl font-extrabold tracking-tight terminal-text"></h1>
+                            <span class="terminal-cursor"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-slate-400 text-lg md:text-xl max-w-2xl mb-12 leading-relaxed" data-i18n="hero-desc">
+                Yerevan-based developer specializing in React, Next.js, and Laravel. I bridge the gap between complex backend logic and intuitive frontend interfaces.
+            </p>
+            <div class="flex flex-wrap items-center gap-6">
+                <a href="#education" data-i18n="hero-cta"
+                   class="px-10 py-5 accent-gradient text-black font-bold rounded-2xl hover:scale-105 transition-transform shadow-xl shadow-emerald-500/10">
+                    View Case Studies
+                </a>
+                <div class="flex gap-4">
+                    <a href="https://github.com/Narek0011" target="_blank" class="w-14 h-14 glass-panel rounded-2xl flex items-center justify-center hover:bg-white/10 transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
+                    <a href="https://www.linkedin.com/in/narek-martirosyan-6b6aa1256/" target="_blank" class="w-14 h-14 glass-panel rounded-2xl flex items-center justify-center hover:bg-white/10 transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="lg:col-span-5 hidden lg:block">
+            <div class="glass-panel p-8 rounded-[2.5rem] border-white/5 shadow-2xl relative group">
+                <div class="absolute -inset-0.5 accent-gradient opacity-10 group-hover:opacity-20 transition-opacity blur rounded-[2.5rem]"></div>
+                <div class="relative bg-black/40 rounded-3xl p-8 mono text-sm leading-relaxed text-slate-400">
+                    <div class="flex gap-2 mb-6">
+                        <div class="w-3 h-3 rounded-full bg-red-500/20"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/20"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/20"></div>
+                    </div>
+                    <p><span class="text-emerald-400">const</span> <span class="text-sky-300">stack</span> = [</p>
+                    <p class="ml-6">'JS', 'PHP',</p>
+                    <p class="ml-6">'React&Next', 'NestJS',</p>
+                    <p class="ml-6">'Laravel', 'MySQL'</p>
+                    <p>];</p>
+                    <p class="mt-4"><span class="text-emerald-400">export default</span> <span class="text-sky-300">stack</span>;
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats -->
+<section class="py-12 border-y border-white/5 bg-white/[0.01]">
+    <div class="max-w-7xl mx-auto px-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="text-center">
+            <p class="text-4xl font-black text-white">4+</p>
+            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-2" data-i18n="stat-years">Years of Code</p>
+        </div>
+        <div class="text-center">
+            <p class="text-4xl font-black text-white">20+</p>
+            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-2" data-i18n="stat-projects">Projects Shipped</p>
+        </div>
+        <div class="text-center">
+            <p class="text-4xl font-black text-white">100%</p>
+            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-2" data-i18n="stat-delivery">Responsive Delivery</p>
+        </div>
+        <div class="text-center">
+            <p class="text-4xl font-black text-white">3</p>
+            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-2" data-i18n="stat-langs">Fluent Languages</p>
+        </div>
+    </div>
+</section>
+
+<!-- Experience -->
+<section id="experience" class="py-32 px-8">
+    <div class="max-w-5xl mx-auto">
+        <div class="mb-20">
+            <h2 class="text-sm font-bold mono text-emerald-500 tracking-[0.3em] uppercase mb-4" data-i18n="exp-subtitle">Chronology</h2>
+            <p class="text-5xl font-extrabold tracking-tight" data-i18n="exp-title">Professional Career</p>
+        </div>
+
+        <div class="space-y-12">
+            <!-- Role 1 -->
+            <div class="reveal exp-card relative p-8 md:p-12 glass-panel rounded-[2rem] group">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white group-hover:text-emerald-400 transition-colors" data-i18n="exp-role1-title">Full Stack Developer</h3>
+                        <p class="text-slate-500 font-semibold mt-1">Elite Dev Squad — Yerevan, AM</p>
+                    </div>
+                    <span class="px-5 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-xs font-bold mono uppercase" data-i18n="exp-role1-date">2025 - Present</span>
+                </div>
+                <ul class="space-y-4 text-slate-400 text-sm md:text-base leading-relaxed">
+                    <li class="flex gap-4">
+                        <span class="text-emerald-500 mt-1">•</span>
+                        <span data-i18n="exp-role1-desc1">Architecting scalable web applications using Next.js and Laravel, focusing on microservices.</span>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-emerald-500 mt-1">•</span>
+                        <span data-i18n="exp-role1-desc2">Leading feature sprints in an agile environment, ensuring high-performance deployments.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Role 2 -->
+            <div class="reveal exp-card relative p-8 md:p-12 glass-panel rounded-[2rem] group">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white group-hover:text-emerald-400 transition-colors" data-i18n="exp-role2-title">Mobile & Web Developer</h3>
+                        <p class="text-slate-500 font-semibold mt-1">TechnoMind — Yerevan, AM</p>
+                    </div>
+                    <span class="px-5 py-2 rounded-full bg-slate-500/10 border border-slate-500/20 text-slate-400 text-xs font-bold mono uppercase" data-i18n="exp-role2-date">2022 - 2025</span>
+                </div>
+                <ul class="space-y-4 text-slate-400 text-sm md:text-base leading-relaxed">
+                    <li class="flex gap-4">
+                        <span class="text-emerald-500 mt-1">•</span>
+                        <span data-i18n="exp-role2-desc1">Engineered cross-platform mobile solutions using React Native with integrated APIs.</span>
+                    </li>
+                    <li class="flex gap-4">
+                        <span class="text-emerald-500 mt-1">•</span>
+                        <span data-i18n="exp-role2-desc2">Refined SQL database structures improving page load speed by 40%.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills Grid -->
+<section id="skills" class="py-32 bg-white/[0.01] px-8 border-y border-white/5">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+            <div>
+                <h2 class="text-sm font-bold mono text-emerald-500 tracking-[0.3em] uppercase mb-4" data-i18n="skills-subtitle">Capabilities</h2>
+                <p class="text-5xl font-extrabold tracking-tight" data-i18n="skills-title">Technical Proficiency</p>
+            </div>
+            <p class="text-slate-500 max-w-sm text-sm" data-i18n="skills-desc">Comprehensive mastery across modern engineering frameworks and architectural patterns.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Backend -->
+            <div class="reveal glass-panel p-10 rounded-3xl">
+                <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-500 mb-8"><i class="fa-solid fa-server"></i></div>
+                <h4 class="font-bold text-white mb-6 uppercase tracking-widest text-xs" data-i18n="skill-cat1">Backend Architecture</h4>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1.5 bg-white/5 rounded-lg text-[10px] font-bold text-slate-400">LARAVEL</span>
+                    <span class="px-3 py-1.5 bg-white/5 rounded-lg text-[10px] font-bold text-slate-400">NESTJS</span>
+                    <span class="px-3 py-1.5 bg-white/5 rounded-lg text-[10px] font-bold text-slate-400">NODE.JS</span>
+                </div>
+            </div>
+            <!-- Frontend -->
+            <div class="reveal glass-panel p-10 rounded-3xl">
+                <div class="w-12 h-12 bg-sky-500/10 rounded-xl flex items-center justify-center text-sky-500 mb-8"><i class="fa-solid fa-layer-group"></i></div>
+                <h4 class="font-bold text-white mb-6 uppercase tracking-widest text-xs" data-i18n="skill-cat2">Modern Frontend</h4>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1.5 bg-white/5 rounded-lg text-[10px] font-bold text-slate-400">NEXT.JS</span>
+                    <span class="px-3 py-1.5 bg-white/5 rounded-lg text-[10px] font-bold text-slate-400">REACT JS</span>
+                    <span class="px-3 py-1.5 bg-white/5 rounded-lg text-[10px] font-bold text-slate-400">TAILWIND</span>
+                </div>
+            </div>
+            <!-- Database -->
+            <div class="reveal glass-panel p-10 rounded-3xl">
+                <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center text-purple-500 mb-8"><i class="fa-solid fa-database"></i></div>
+                <h4 class="font-bold text-white mb-6 uppercase tracking-widest text-xs" data-i18n="skill-cat3">Data & Storage</h4>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1.5 bg-white/5 rounded-lg text-[10px] font-bold text-slate-400">POSTGRES</span>
+                    <span class="px-3 py-1.5 bg-white/5 rounded-lg text-[10px] font-bold text-slate-400">MONGODB</span>
+                    <span class="px-3 py-1.5 bg-white/5 rounded-lg text-[10px] font-bold text-slate-400">REDIS</span>
+                </div>
+            </div>
+            <!-- Mobile -->
+            <div class="reveal glass-panel p-10 rounded-3xl">
+                <div class="w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center text-orange-500 mb-8"><i class="fa-solid fa-mobile-button"></i></div>
+                <h4 class="font-bold text-white mb-6 uppercase tracking-widest text-xs" data-i18n="skill-cat4">Mobile Solutions</h4>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1.5 bg-white/5 rounded-lg text-[10px] font-bold text-slate-400">REACT NATIVE</span>
+                    <span class="px-3 py-1.5 bg-white/5 rounded-lg text-[10px] font-bold text-slate-400">EXPO</span>
+                    <span class="px-3 py-1.5 bg-white/5 rounded-lg text-[10px] font-bold text-slate-400">C++</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Education & Languages -->
+<section id="education" class="py-32 px-8">
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20">
+        <div>
+            <h2 class="text-sm font-bold mono text-emerald-500 tracking-[0.3em] uppercase mb-4" data-i18n="edu-subtitle">Foundations</h2>
+            <p class="text-5xl font-extrabold tracking-tight mb-12" data-i18n="edu-title">Academic Path</p>
+            <div class="space-y-6">
+                <div class="reveal p-8 glass-panel rounded-2xl border-l-4 border-emerald-500">
+                    <p class="text-xs font-bold text-slate-500 mb-2">2021 — 2026</p>
+                    <h4 class="text-lg font-bold text-white" data-i18n="edu-place1">Yerevan State University</h4>
+                    <p class="text-sm text-slate-400" data-i18n="edu-desc1">Faculty of Informatics and Applied Mathematics</p>
+                </div>
+                <div class="reveal p-8 glass-panel rounded-2xl border-l-4 border-sky-500">
+                    <p class="text-xs font-bold text-slate-500 mb-2">2022</p>
+                    <h4 class="text-lg font-bold text-white">Microsoft Innovation Center</h4>
+                    <p class="text-sm text-slate-400" data-i18n="edu-cert">Professional Full Stack Certification</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-sm font-bold mono text-emerald-500 tracking-[0.3em] uppercase mb-4" data-i18n="lang-subtitle">Global Reach</h2>
+            <p class="text-5xl font-extrabold tracking-tight mb-12" data-i18n="lang-title">Languages</p>
+            <div class="grid grid-cols-1 gap-6">
+                <div class="reveal p-6 glass-panel rounded-2xl flex justify-between items-center">
+                    <span class="font-bold uppercase tracking-widest" data-i18n="lang-am">Armenian</span>
+                    <span class="text-emerald-500 font-bold mono text-xs" data-i18n="level-native">NATIVE</span>
+                </div>
+                <div class="reveal p-6 glass-panel rounded-2xl flex justify-between items-center">
+                    <span class="font-bold uppercase tracking-widest" data-i18n="lang-ru">Russian</span>
+                    <span class="text-emerald-500 font-bold mono text-xs" data-i18n="level-adv">ADVANCED</span>
+                </div>
+                <div class="reveal p-6 glass-panel rounded-2xl flex justify-between items-center">
+                    <span class="font-bold uppercase tracking-widest" data-i18n="lang-en">English</span>
+                    <span class="text-emerald-500 font-bold mono text-xs" data-i18n="level-inter">INTERMEDIATE</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="py-32 px-8 bg-[#0d0d0f]">
+    <div class="max-w-7xl mx-auto">
+        <div class="glass-panel p-12 md:p-20 rounded-[3rem] relative overflow-hidden">
+            <div class="grid lg:grid-cols-2 gap-16 relative z-10">
+                <div>
+                    <h2 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-8 italic uppercase" id="contact-title">
+                        Get in <br/><span class="text-emerald-500">Touch.</span>
+                    </h2>
+                    <div class="space-y-6">
+                        <a href="mailto:narekmartirosyan179@gmail.com" class="flex items-center gap-6 group">
+                            <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-emerald-500 transition-colors"><i class="fa-solid fa-envelope"></i></div>
+                            <div>
+                                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest" data-i18n="form-email-label">Direct Email</p>
+                                <p class="font-bold">narekmartirosyan179@gmail.com</p>
+                            </div>
+                        </a>
+                        <a href="https://t.me/narekmartirosyaan" target="_blank" class="flex items-center gap-6 group">
+                            <div class="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center group-hover:bg-emerald-500 transition-colors"><i class="fa-brands fa-telegram"></i></div>
+                            <div>
+                                <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest" data-i18n="form-tg-label">Telegram</p>
+                                <p class="font-bold">@narekmartirosyaan</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <form id="form" class="space-y-6 bg-black/20 p-8 md:p-12 rounded-[2rem] border border-white/5">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-bold uppercase tracking-widest text-slate-500" data-i18n="form-title">Title</label>
+                            <input type="text" name="title" required class="w-full bg-white/5 border border-white/5 rounded-xl px-5 py-4 focus:outline-none focus:border-emerald-500 text-white">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-bold uppercase tracking-widest text-slate-500" data-i18n="form-name">Name</label>
+                            <input type="text" name="name" required class="w-full bg-white/5 border border-white/5 rounded-xl px-5 py-4 focus:outline-none focus:border-emerald-500 text-white">
+                        </div>
+                        <div class="space-y-2 md:col-span-2">
+                            <label class="text-[10px] font-bold uppercase tracking-widest text-slate-500" data-i18n="form-email">Email</label>
+                            <input type="email" name="email" required class="w-full bg-white/5 border border-white/5 rounded-xl px-5 py-4 focus:outline-none focus:border-emerald-500 text-white">
+                        </div>
+                        <div class="space-y-2 md:col-span-2">
+                            <label class="text-[10px] font-bold uppercase tracking-widest text-slate-500" data-i18n="form-msg">Message</label>
+                            <textarea name="message" rows="5" required class="w-full bg-white/5 border border-white/5 rounded-xl px-5 py-4 focus:outline-none focus:border-emerald-500 resize-none text-white"></textarea>
+                        </div>
+                    </div>
+                    <input type="submit" id="button" value="Send Email" data-i18n-val="form-btn" class="w-full py-5 bg-white text-black font-black uppercase text-xs tracking-widest rounded-xl hover:bg-emerald-500 hover:text-white transition-all cursor-pointer">
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-20 border-t border-white/5 px-8">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
+        <div>
+            <p class="text-xl font-bold tracking-tighter">NAREK<span class="text-emerald-500">.</span>M</p>
+            <p class="text-slate-500 text-xs mt-2 uppercase tracking-[0.2em]" data-i18n="footer-tag">Engineering quality since 2021</p>
+        </div>
+        <div class="flex gap-10">
+            <a href="https://github.com/Narek0011" class="text-slate-400 hover:text-white transition-colors">Github</a>
+            <a href="https://www.linkedin.com/in/narek-martirosyan-606aa1256" class="text-slate-400 hover:text-white transition-colors">LinkedIn</a>
+        </div>
+        <p class="text-slate-600 text-[10px] uppercase font-bold tracking-widest">© 2026 Yerevan, Armenia</p>
+    </div>
+</footer>
+
+<script>
+    // Translation Data
+    const translations = {
+        en: {
+            "nav-about": "About",
+            "nav-career": "Career",
+            "nav-stack": "Stack",
+            "nav-education": "Education",
+            "nav-talk": "Let's Talk",
+            "hero-tag": "Full Stack Engineer",
+            "hero-title": "Engineering Seamless Digital Experiences.",
+            "hero-desc": "Yerevan-based developer specializing in React, Next.js, and Laravel. I bridge the gap between complex backend logic and intuitive frontend interfaces.",
+            "hero-cta": "View Case Studies",
+            "stat-years": "Years of Code",
+            "stat-projects": "Projects Shipped",
+            "stat-delivery": "Responsive Delivery",
+            "stat-langs": "Fluent Languages",
+            "exp-subtitle": "Chronology",
+            "exp-title": "Professional Career",
+            "exp-role1-title": "Full Stack Developer",
+            "exp-role1-date": "2025 - Present",
+            "exp-role1-desc1": "Architecting scalable web applications using Next.js and Laravel, focusing on microservices.",
+            "exp-role1-desc2": "Leading feature sprints in an agile environment, ensuring high-performance deployments.",
+            "exp-role2-title": "Mobile & Web Developer",
+            "exp-role2-date": "2022 - 2025",
+            "exp-role2-desc1": "Engineered cross-platform mobile solutions using React Native with integrated APIs.",
+            "exp-role2-desc2": "Refined SQL database structures improving page load speed by 40%.",
+            "skills-subtitle": "Capabilities",
+            "skills-title": "Technical Proficiency",
+            "skills-desc": "Comprehensive mastery across modern engineering frameworks and architectural patterns.",
+            "skill-cat1": "Backend Architecture",
+            "skill-cat2": "Modern Frontend",
+            "skill-cat3": "Data & Storage",
+            "skill-cat4": "Mobile Solutions",
+            "edu-subtitle": "Foundations",
+            "edu-title": "Academic Path",
+            "edu-place1": "Yerevan State University",
+            "edu-desc1": "Faculty of Informatics and Applied Mathematics",
+            "edu-cert": "Professional Full Stack Certification",
+            "lang-subtitle": "Global Reach",
+            "lang-title": "Languages",
+            "lang-am": "Armenian",
+            "lang-ru": "Russian",
+            "lang-en": "English",
+            "level-native": "NATIVE",
+            "level-adv": "ADVANCED",
+            "level-inter": "INTERMEDIATE",
+            "contact-title": "Get in <br/><span class='text-emerald-500'>Touch.</span>",
+            "form-title": "Title",
+            "form-name": "Name",
+            "form-email": "Email",
+            "form-msg": "Message",
+            "form-btn": "Send Email",
+            "form-email-label": "Direct Email",
+            "form-tg-label": "Telegram",
+            "footer-tag": "Engineering quality since 2021",
+            "msg-success": "✅ Message sent successfully!",
+            "msg-fail": "❌ Failed to send message"
+        },
+        am: {
+            "nav-about": "Մեր մասին",
+            "nav-career": "Կարիերա",
+            "nav-stack": "Փաթեթ",
+            "nav-education": "Կրթություն",
+            "nav-talk": "Կապ հաստատել",
+            "hero-tag": "Full Stack Ինժեներ",
+            "hero-title": "Ստեղծելով Անթերի Թվային Փորձառություններ:",
+            "hero-desc": "Երևանաբնակ ծրագրավորող, մասնագիտացված React, Next.js և Laravel տեխնոլոգիաներում: Ես կապում եմ բարդ backend տրամաբանությունը ինտուիտիվ frontend ինտերֆեյսների հետ:",
+            "hero-cta": "Դիտել Նախագծերը",
+            "stat-years": "Տարիների Փորձ",
+            "stat-projects": "Ավարտված Նախագծեր",
+            "stat-delivery": "Արագ Գործարկում",
+            "stat-langs": "Լեզուների Տիրապետում",
+            "exp-subtitle": "Ժամանակագրություն",
+            "exp-title": "Պրոֆեսիոնալ Կարիերա",
+            "exp-role1-title": "Full Stack Ծրագրավորող",
+            "exp-role1-date": "2025 - Ներկա",
+            "exp-role1-desc1": "Մասշտաբավորվող վեբ հավելվածների ճարտարապետություն՝ օգտագործելով Next.js և Laravel:",
+            "exp-role1-desc2": "Թիմային աշխատանքի ղեկավարում ճկուն (agile) միջավայրում՝ ապահովելով բարձր արդյունավետություն:",
+            "exp-role2-title": "Mobile և Վեբ Ծրագրավորող",
+            "exp-role2-date": "2022 - 2025",
+            "exp-role2-desc1": "Բազմապլատֆորմ մոբայլ լուծումներ React Native-ի և արտաքին API-ների միջոցով:",
+            "exp-role2-desc2": "SQL տվյալների բազաների օպտիմալացում՝ բարելավելով արագությունը 40%-ով:",
+            "skills-subtitle": "Հմտություններ",
+            "skills-title": "Տեխնիկական Գիտելիքներ",
+            "skills-desc": "Ժամանակակից ինժեներական շրջանակների և ճարտարապետական ​​նախշերի համապարփակ տիրապետում:",
+            "skill-cat1": "Backend Ճարտարապետություն",
+            "skill-cat2": "Ժամանակակից Frontend",
+            "skill-cat3": "Տվյալներ և Պահպանում",
+            "skill-cat4": "Մոբայլ Լուծումներ",
+            "edu-subtitle": "Հիմքեր",
+            "edu-title": "Կրթական Ուղի",
+            "edu-place1": "Երևանի Պետական Համալսարան",
+            "edu-desc1": "Ինֆորմատիկայի և կիրառական մաթեմատիկայի ֆակուլտետ",
+            "edu-cert": "Պրոֆեսիոնալ Full Stack Սերտիֆիկացում",
+            "lang-subtitle": "Լեզուներ",
+            "lang-title": "Լեզուների իմացություն",
+            "lang-am": "Հայերեն",
+            "lang-ru": "Ռուսերեն",
+            "lang-en": "Անգլերեն",
+            "level-native": "ՄԱՅՐԵՆԻ",
+            "level-adv": "ԳԵՐԱԶԱՆՑ",
+            "level-inter": "ՄԻՋԻՆ",
+            "contact-title": "Հետադարձ <br/><span class='text-emerald-500'>Կապ.</span>",
+            "form-title": "Վերնագիր",
+            "form-name": "Անուն",
+            "form-email": "Էլ. Փոստ",
+            "form-msg": "Հաղորդագրություն",
+            "form-btn": "Ուղարկել",
+            "form-email-label": "Էլ. Փոստ",
+            "form-tg-label": "Տելեգրամ",
+            "footer-tag": "Որակյալ աշխատանք 2021 թվականից",
+            "msg-success": "✅ Հաղորդագրությունը հաջողությամբ ուղարկվեց:",
+            "msg-fail": "❌ Չհաջողվեց ուղարկել հաղորդագրությունը"
+        },
+        ru: {
+            "nav-about": "Обо мне",
+            "nav-career": "Карьера",
+            "nav-stack": "Стек",
+            "nav-education": "Обучение",
+            "nav-talk": "Связаться",
+            "hero-tag": "Full Stack Инженер",
+            "hero-title": "Создание Совершенного Цифрового Опыта.",
+            "hero-desc": "Разработчик из Еревана, специализирующийся на React, Next.js и Laravel. Я соединяю сложную серверную логику с интуитивно понятными интерфейсами.",
+            "hero-cta": "Посмотреть Проекты",
+            "stat-years": "Лет в Коде",
+            "stat-projects": "Проектов Сдано",
+            "stat-delivery": "Адаптивность",
+            "stat-langs": "Языков Общения",
+            "exp-subtitle": "Хронология",
+            "exp-title": "Профессиональный Путь",
+            "exp-role1-title": "Full Stack Разработчик",
+            "exp-role1-date": "2025 - Настоящее время",
+            "exp-role1-desc1": "Архитектура масштабируемых веб-приложений с использованием Next.js и Laravel.",
+            "exp-role1-desc2": "Лидирование в спринтах в гибкой среде разработки, обеспечение стабильности кода.",
+            "exp-role2-title": "Mobile и Web Разработчик",
+            "exp-role2-date": "2022 - 2025",
+            "exp-role2-desc1": "Разработка кроссплатформенных мобильных решений на React Native с интеграцией API.",
+            "exp-role2-desc2": "Оптимизация структур баз данных SQL, ускорение загрузки страниц на 40%.",
+            "skills-subtitle": "Возможности",
+            "skills-title": "Технические Навыки",
+            "skills-desc": "Полное владение современными инженерными фреймворками и архитектурными паттернами.",
+            "skill-cat1": "Backend Архитектура",
+            "skill-cat2": "Современный Frontend",
+            "skill-cat3": "Данные и Хранение",
+            "skill-cat4": "Мобильные Решения",
+            "edu-subtitle": "Основание",
+            "edu-title": "Академический Путь",
+            "edu-place1": "Ереванский Государственный Университет",
+            "edu-desc1": "Факультет информатики и прикладной математики",
+            "edu-cert": "Профессиональная Full Stack Сертификация",
+            "lang-subtitle": "Глобальный Охват",
+            "lang-title": "Языки",
+            "lang-am": "Армянский",
+            "lang-ru": "Русский",
+            "lang-en": "Английский",
+            "level-native": "РОДНОЙ",
+            "level-adv": "ПРОДВИНУТЫЙ",
+            "level-inter": "СРЕДНИЙ",
+            "contact-title": "Будем на <br/><span class='text-emerald-500'>Связи.</span>",
+            "form-title": "Тема",
+            "form-name": "Имя",
+            "form-email": "Email",
+            "form-msg": "Сообщение",
+            "form-btn": "Отправить",
+            "form-email-label": "Прямой Email",
+            "form-tg-label": "Телеграм",
+            "footer-tag": "Качественная разработка с 2021 года",
+            "msg-success": "✅ Сообщение успешно отправлено!",
+            "msg-fail": "❌ Не удалось отправить сообщение"
+        }
+    };
+
+    let currentLang = 'en';
+    let typingTimer = null;
+    document.getElementById('current-date').innerText = new Date().toDateString();
+
+    function typeTerminalTitle(text) {
+        const container = document.getElementById('hero-title');
+        container.innerHTML = '';
+        let i = 0;
+        if (typingTimer) clearInterval(typingTimer);
+        typingTimer = setInterval(() => {
+            if (i < text.length) {
+                container.innerHTML += text.charAt(i);
+                i++;
+            } else {
+                clearInterval(typingTimer);
+            }
+        }, 40);
+    }
+
+    window.onload = () => changeLang('en');
+
+    function changeLang(lang) {
+        currentLang = lang;
+        document.getElementById('current-lang-label').innerText = lang.toUpperCase();
+
+        // Update elements with data-i18n
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang][key]) {
+                el.innerHTML = translations[lang][key];
+            }
+        });
+
+        // Update elements with data-i18n-val (like input submit)
+        document.querySelectorAll('[data-i18n-val]').forEach(el => {
+            const key = el.getAttribute('data-i18n-val');
+            if (translations[lang][key]) {
+                el.value = translations[lang][key];
+            }
+        });
+
+        // Special handling for HTML structures
+        if (lang === 'am' || lang === 'ru') {
+            document.getElementById('hero-title').innerHTML = translations[lang]['hero-title'];
+            document.getElementById('contact-title').innerHTML = translations[lang]['contact-title'];
+        } else {
+            document.getElementById('hero-title').innerHTML = translations['en']['hero-title'];
+            document.getElementById('contact-title').innerHTML = translations['en']['contact-title'];
+        }
+        typeTerminalTitle(translations[lang]['hero-title']);
+        // Close dropdown
+        document.getElementById('lang-dropdown').style.display = 'none';
+    }
+
+    // Toggle dropdown visibility
+    const langBtn = document.querySelector('#lang-selector button');
+    const langDropdown = document.getElementById('lang-dropdown');
+
+    langBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isVisible = langDropdown.style.display === 'block';
+        langDropdown.style.display = isVisible ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', () => {
+        langDropdown.style.display = 'none';
+    });
+
+    // Send Mail Integration
+    const btn = document.getElementById('button');
+    const form = document.getElementById('form');
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        btn.value = currentLang === 'am' ? 'Ուղարկվում է...' : (currentLang === 'ru' ? 'Отправка...' : 'Sending...');
+
+        emailjs.sendForm('service_9ah6u9j', 'template_sehszz9', this)
+            .then(() => {
+                btn.value = translations[currentLang]['form-btn'];
+                alert(translations[currentLang]['msg-success']);
+                form.reset();
+            }).catch((error) => {
+            btn.value = translations[currentLang]['form-btn'];
+            alert(translations[currentLang]['msg-fail']);
+            console.error(error);
+        });
+    });
+
+    // Header Scroll behavior
+    const header = document.getElementById('main-header');
+    window.onscroll = () => {
+        if (window.scrollY > 100) {
+            header.classList.add('bg-black/80', 'backdrop-blur-xl', 'border-b', 'border-white/5', 'py-4');
+            header.classList.remove('py-6');
+        } else {
+            header.classList.remove('bg-black/80', 'backdrop-blur-xl', 'border-b', 'border-white/5', 'py-4');
+            header.classList.add('py-6');
+        }
+    };
+
+    // Mobile Menu
+    const overlay = document.getElementById('mobile-overlay');
+    document.getElementById('menu-toggle').onclick = () => overlay.classList.remove('translate-x-full');
+    document.getElementById('menu-close').onclick = () => overlay.classList.add('translate-x-full');
+    overlay.querySelectorAll('a').forEach(a => a.onclick = () => overlay.classList.add('translate-x-full'));
+
+    // GSAP Animations
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray('.reveal').forEach(elem => {
+        gsap.to(elem, {
+            scrollTrigger: {
+                trigger: elem,
+                start: "top 90%",
+                toggleActions: "play none none none"
+            },
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out"
+        });
+    });
+
+    gsap.from('h1', {opacity: 0, y: 30, duration: 1.2, delay: 0.3, ease: 'power4.out'});
+    gsap.from('.lg\\:col-span-5', {opacity: 0, scale: 0.95, duration: 1.5, delay: 0.5, ease: 'power2.out'});
+</script>
+</body>
+</html>
