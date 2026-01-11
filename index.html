@@ -323,10 +323,6 @@
                 backend logic and intuitive frontend interfaces.
             </p>
             <div class="flex flex-wrap items-center gap-6">
-                <a href="#education" data-i18n="hero-cta"
-                   class="px-10 py-5 accent-gradient text-black font-bold rounded-2xl hover:scale-105 transition-transform shadow-xl shadow-emerald-500/10">
-                    View Case Studies
-                </a>
                 <div class="flex gap-4">
                     <a href="https://github.com/Narek0011" target="_blank"
                        class="w-14 h-14 glass-panel rounded-2xl flex items-center justify-center hover:bg-white/10 transition-colors"><i
@@ -645,7 +641,6 @@
 </footer>
 
 <script>
-    // Translation Data
     const translations = {
         en: {
             "nav-about": "About",
@@ -816,24 +811,28 @@
             "msg-fail": "❌ Не удалось отправить сообщение"
         }
     };
-
     let currentLang = 'en';
     let typingTimer = null;
     document.getElementById('current-date').innerText = new Date().toDateString();
-
     function typeTerminalTitle(text) {
         const container = document.getElementById('hero-title');
-        container.innerHTML = '';
-        let i = 0;
+
+        if (!container) return;
+
         if (typingTimer) clearInterval(typingTimer);
+
+        container.textContent = '';
+        let i = 0;
+
         typingTimer = setInterval(() => {
             if (i < text.length) {
-                container.innerHTML += text.charAt(i);
+                container.textContent += text.charAt(i);
                 i++;
             } else {
                 clearInterval(typingTimer);
+                typingTimer = null;
             }
-        }, 40);
+        }, 70);
     }
 
     window.onload = () => changeLang('en');
@@ -842,7 +841,6 @@
         currentLang = lang;
         document.getElementById('current-lang-label').innerText = lang.toUpperCase();
 
-        // Update elements with data-i18n
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (translations[lang][key]) {
@@ -850,7 +848,6 @@
             }
         });
 
-        // Update elements with data-i18n-val (like input submit)
         document.querySelectorAll('[data-i18n-val]').forEach(el => {
             const key = el.getAttribute('data-i18n-val');
             if (translations[lang][key]) {
@@ -858,7 +855,6 @@
             }
         });
 
-        // Special handling for HTML structures
         if (lang === 'am' || lang === 'ru') {
             document.getElementById('hero-title').innerHTML = translations[lang]['hero-title'];
             document.getElementById('contact-title').innerHTML = translations[lang]['contact-title'];
@@ -867,11 +863,9 @@
             document.getElementById('contact-title').innerHTML = translations['en']['contact-title'];
         }
         typeTerminalTitle(translations[lang]['hero-title']);
-        // Close dropdown
         document.getElementById('lang-dropdown').style.display = 'none';
     }
 
-    // Toggle dropdown visibility
     const langBtn = document.querySelector('#lang-selector button');
     const langDropdown = document.getElementById('lang-dropdown');
 
@@ -931,7 +925,8 @@
             scrollTrigger: {
                 trigger: elem,
                 start: "top 90%",
-                toggleActions: "play none none none"
+                toggleActions: "play none none none",
+                once: true
             },
             opacity: 1,
             y: 0,
